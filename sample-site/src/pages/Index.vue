@@ -4,17 +4,46 @@
       <h1>Welcome Minecraft</h1>
       <p>let's enjoy the game and our community</p>
     </header>
+    <section class="posts">
+      <PostList v-for="edge in $page.allPost.edges" :key="edge.node.id" :post="edge.node" />
+    </section>
   </Layout>
 </template>
 
 
 <script>
+import PostList from "@/components/PostList";
 export default {
+  components: {
+    PostList
+  },
   metaInfo: {
-    title: 'Hello, world!'
+    title: "Welcome Minecraft"
+  }
+};
+</script>
+<page-query>
+
+query {
+  metadata {
+    siteName
+    siteDescription
+  }
+  allPost {
+    totalCount
+    edges {
+      node {
+        id
+        title
+        timeToRead
+        description
+        date (format: "D MMMM YYYY")
+        path
+      }
+    }
   }
 }
-</script>
+</page-query>
 
 <style>
 .header {
